@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+dist/
+
+# Environment files (keep examples)
+.env
+.env.*
+!.env.example
+
+# SQLite databases (keep only the seeded backend database)
+*.db
+*.sqlite
+*.sqlite3
+!backend/data/
+!backend/data/app.db
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Private interview notes
+interview_notes/
