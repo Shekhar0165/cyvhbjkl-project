@@ -8,7 +8,10 @@ const DEFAULT_DEMAND = Array(24).fill("30000");
 const fmt = (value, digits = 0) => value == null ? "-" : new Intl.NumberFormat("en-GB", { maximumFractionDigits: digits }).format(value);
 const localTime = (value) => value ? `${value.slice(11, 16)} UTC` : "-";
 const dateLabel = (value) => value ? new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", { day: "2-digit", month: "short", timeZone: "UTC" }) : "-";
-const chartMotionEnabled = () => !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+const chartMotionEnabled = () => {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") return true;
+  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+};
 
 function Section({ title, description, children, className = "" }) {
   return <section className={`panel ${className}`}><div className="section-heading"><div><h2>{title}</h2><p>{description}</p></div></div>{children}</section>;

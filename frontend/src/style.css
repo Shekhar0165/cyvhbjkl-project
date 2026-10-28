@@ -108,7 +108,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .chart-card-main { min-width: 0; }
 .chart-container { position: relative; display: block; width: 100%; min-width: 0; min-height: var(--chart-height, 320px); height: var(--chart-height, 320px); margin: 0; }
 .dashboard-chart { width: 100%; margin: 0; }
-.recharts-wrapper, .recharts-surface { max-width: 100%; }
+.recharts-surface { max-width: 100%; }
 .recharts-default-legend { font-size: 10px !important; }
 .recharts-text { fill: var(--text-muted); font-size: 10px; }
 .chart-tooltip { min-width: 130px; padding: 9px 11px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface); box-shadow: var(--shadow-float); color: var(--text); font-size: 10px; }

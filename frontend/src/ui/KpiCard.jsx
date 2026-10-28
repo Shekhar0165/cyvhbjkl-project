@@ -5,7 +5,7 @@ function useCountUp(value) {
   const [display, setDisplay] = useState(value);
   useEffect(() => {
     if (typeof value !== "number" || !Number.isFinite(value)) { setDisplay(value); return undefined; }
-    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    const reduce = typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) { setDisplay(value); return undefined; }
     const from = typeof display === "number" ? display : 0;
     const started = performance.now();

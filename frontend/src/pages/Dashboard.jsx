@@ -20,7 +20,10 @@ const JAN_END = "2026-01-31";
 const fmt = (value, digits = 1) => value == null ? "-" : new Intl.NumberFormat("en-GB", { maximumFractionDigits: digits }).format(value);
 const timeLabel = (value) => value ? value.slice(11, 16) : "-";
 const dateTimeLabel = (value) => value ? `${value.slice(5, 10)} ${timeLabel(value)}` : "-";
-const animationsEnabled = () => !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+const animationsEnabled = () => {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") return true;
+  return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+};
 
 function useResource(key, load) {
   const loadRef = useRef(load);
@@ -54,10 +57,16 @@ function WidgetState({ loading, error, retry, children, type = "chart" }) {
 
 function downloadForecastCsv(rows) {
   const columns = ["start_time", "forecast_mw", "publish_time", "hours_ahead", "actual_mw"];
-  const text = [columns.join(","), ...rows.map((row) => columns.map((key) => row[key] ?? "").join(","))].join("\n");
+  const escapeCsvCell = (value) => {
+    if (value == null) return "";
+    const raw = String(value).replace(/\r?\n/g, " ");
+    return /[",]/.test(raw) ? `"${raw.replace(/"/g, '""')}"` : raw;
+  };
+  const text = [columns.join(","), ...rows.map((row) => columns.map((key) => escapeCsvCell(row[key])).join(","))].join("\n");
   const url = URL.createObjectURL(new Blob([text], { type: "text/csv;charset=utf-8" }));
   const link = document.createElement("a");
-  link.href = url; link.download = "winddesk-forecast.csv"; link.click(); URL.revokeObjectURL(url);
+  link.href = url; link.download = "winddesk-forecast.csv"; document.body.appendChild(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function ChartFrame({ data, dataKey = "label", children, ariaLabel }) {
