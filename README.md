@@ -193,7 +193,12 @@ Only pass `--replace` when you intend to clear the selected existing dataset tab
 
 ## Deployment preparation
 
-Nothing has been deployed. The committed database contains Elexon observations.
+The frontend and backend are deployed at the following URLs:
+
+- Frontend: [WindDesk dashboard](https://frontend-dun-pi-yke6votvm5.vercel.app)
+- Backend API: [WindDesk API](https://winddesk-api-1-0-0.onrender.com/)
+
+The committed database contains Elexon observations.
 
 ### Vercel frontend
 
@@ -208,8 +213,6 @@ Nothing has been deployed. The committed database contains Elexon observations.
 - Set `DATABASE_PATH=/app/data/app.db`, `DEFAULT_CUTOFF_UTC=10:00`, and `CORS_ORIGINS` to the Vercel origin.
 - The free tier sleeps while idle, so its first request can be slow.
 
-**Live app links:** Vercel: _not deployed_ | API: _not deployed_
-
 ## Known limitations
 
 - The checked-in SQLite snapshot contains one historical month of actuals and forecasts; it does not update automatically with new Elexon releases.
@@ -219,4 +222,4 @@ Nothing has been deployed. The committed database contains Elexon observations.
 
 ## AI-assisted development
 
-OpenAI Codex and Claude were used to assist development. Human review remains necessary before operational trading use.
+OpenAI Codex CLI and Claude were used to assist development. Human review remains necessary before operational trading use.
